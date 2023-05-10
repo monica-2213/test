@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the dataset
-data_url = 'https://datahub.io/machine-learning/cervical-cancer/r/cervical-cancer_csv.csv'
+data_url = 'https://datahub.io/machine-learning/cervical-cancer/datapackage.json'
 df = pd.read_csv(data_url)
 
 # Define the rules library
