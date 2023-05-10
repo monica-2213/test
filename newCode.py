@@ -1,11 +1,12 @@
 import streamlit as st
 import pandas as pd
 
-# Load the dataset from a local file
-df = pd.read_csv("test/cervical-cancer.csv")
+# Load the dataset
+data_url = './cervical-cancer.csv'
+df = pd.read_csv(data_url)
 
-# Display the data
-st.dataframe(df)
+# Display the dataframe
+st.write(df)
 
 # Define the rules library
 rules = {
