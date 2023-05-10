@@ -66,6 +66,7 @@ rules = {
 }
 
 def cervical_cancer_rules(age, num_sexual_partners, first_sexual_intercourse, num_pregnancies, smoking, smoking_years, hormonal_contraceptives, hormonal_contraceptives_years, iud, iud_years, std, num_std_diagnoses, time_since_first_std, time_since_last_std):
+    risk = 0
     
     # Rule 1: Age over 21 years old increases risk
     if age > 21:
@@ -113,11 +114,10 @@ def cervical_cancer_rules(age, num_sexual_partners, first_sexual_intercourse, nu
     
     return risk
 
-# Define the Streamlit app
 def app():
     # Set the title of the web app
     st.title('Cervical Cancer Risk Calculator')
-    
+
     # Create input fields for each variable
     age = st.number_input('Age', min_value=18, max_value=84, value=25)
     num_sexual_partners = st.number_input('Number of Sexual Partners', min_value=0, value=1)
@@ -147,29 +147,16 @@ def app():
         num_std_diagnoses = 0
         time_since_first_std = 0
         time_since_last_std = 0
-    
+
     # Check if the input values meet the rules
     error_message = ''
     for variable, value in zip(['age', 'num_sexual_partners', 'first_sexual_intercourse', 'num_pregnancies', 'smoke', 'smoking_years', 'hormonal_contraceptives', 'hormonal_contraceptives_years', 'iud', 'iud_years', 'stds', 'num_stds', 'time_since_first_std', 'time_since_last_std'], [age, num_sexual_partners, first_sexual_intercourse, num_pregnancies, smoking, smoking_years, hormonal_contraceptives, hormonal_contraceptives_years, iud, iud_years, std, num_std_diagnoses, time_since_first_std, time_since_last_std]):
         if not rules[variable]['rule'](value):
             error_message += rules[variable]['error_message'] + '\n'
-    
+
     # If there is an error, display the error message
     if error_message:
         st.error(error_message)
     else:
         # Calculate the risk of cervical cancer based on the input values
-        risk = cervical_cancer_rules(age, num_sexual_partners, first_sexual_intercourse,num_pregnancies,smoke, smoking_years, hormonal_contraceptives, hormonal_contraceptives_years, iud, iud_years, stds, num_stds, time_since_first_std, time_since_last_std)
-        # Display the risk of cervical cancer to the user
-        st.write(f"Based on the input values, the calculated risk of cervical cancer is {risk}.")
-
-        # Determine the risk category based on the calculated risk
-        if risk <= 2:
-            category = 'Low'
-        elif risk <= 4:
-            category = 'Moderate'
-        else:
-            category = 'High'
-
-        # Display the risk category to the user
-        st.write(f"The calculated risk falls into the {category} category.")
+        risk = cervical_cancer_rules
