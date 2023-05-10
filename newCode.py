@@ -81,11 +81,12 @@ if st.button("Predict"):
         'STDs:hepatitis B': 1 if stds_hepatitis_b == "Yes" else 0
     }
 
-    # Make prediction
-    prediction = rfc.predict([list(input_data.values())])[0]
+    # Predict on input data
+    pred = rfc.predict(pd.DataFrame([input_data]))
 
-    # Display prediction
-    if prediction == 0:
-        st.write("The patient is likely not to have cervical cancer.")
-    else:
-        st.write("The patient is likely to have cervical cancer.")
+    # Map prediction to diagnosis
+    diagnosis = "Positive" if pred[0] == 1 else "Negative"
+
+    # Display diagnosis
+    st.write(f"Based on the input data, the diagnosis is {diagnosis}.")
+
