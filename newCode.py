@@ -1,5 +1,12 @@
+# This Streamlit app requires the following packages:
+#   joblib==1.0.1
+#   pandas==1.2.3
+#   scikit-learn==0.24.1
+#   streamlit==0.79.0
+
 import streamlit as st
 import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
 import joblib
 
 # Load the machine learning model
