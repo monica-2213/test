@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-# Load the dataset
-data_url = './cervical-cancer.csv'
+data_url = 'https://datahub.io/machine-learning/cervical-cancer/r/cervical-cancer.csv'
 df = pd.read_csv(data_url)
 
 # Display the dataframe
