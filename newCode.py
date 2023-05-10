@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load the dataset from a local file
-df = pd.read_csv("cervical_cancer.csv")
+df = pd.read_csv("test/cervical-cancer.csv")
 
 # Display the data
 st.dataframe(df)
