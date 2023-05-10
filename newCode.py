@@ -58,7 +58,7 @@ else:
 stds = st.selectbox("Have you ever had a sexually transmitted disease?", ("Yes", "No"))
 if stds == "Yes":
     stds_number = st.number_input("How many sexually transmitted diseases have you had?", min_value=1, value=1)
-else:
+else: 
     stds_number = 0
 
 if st.button("Submit"):
