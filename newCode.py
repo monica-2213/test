@@ -10,7 +10,8 @@ from sklearn.ensemble import RandomForestClassifier
 import joblib
 
 # Load the machine learning model
-model = joblib.load('cervical_cancer_prediction.joblib')
+url = "https://datahub.io/machine-learning/cervical-cancer/r/cervical-cancer.csv"
+model = joblib.load(url)
 
 # Create the web app
 st.title('Cervical Cancer Expert System')
