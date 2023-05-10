@@ -7,6 +7,8 @@ from sklearn.metrics import accuracy_score
 # Load dataset
 url = 'https://datahub.io/machine-learning/cervical-cancer/r/cervical-cancer.csv'
 data = pd.read_csv(url)
+# Impute missing values with the median value for each feature
+data = data.fillna(data.median())
 
 # Split dataset into features and target
 X = data.drop(['Biopsy'], axis=1)
