@@ -1,5 +1,9 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
+
+# use the numpy scalar type
+x = np.array([True, False], dtype=np.bool_)
 
 data_url = 'https://datahub.io/machine-learning/cervical-cancer/r/cervical-cancer.csv'
 df = pd.read_csv(data_url)
