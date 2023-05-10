@@ -1,9 +1,11 @@
 import streamlit as st
 import pandas as pd
 
-# Load the dataset
-data_url = 'https://datahub.io/machine-learning/cervical-cancer/datapackage.json'
-df = pd.read_csv(data_url)
+# Load the dataset from a local file
+df = pd.read_csv("cervical_cancer.csv")
+
+# Display the data
+st.dataframe(df)
 
 # Define the rules library
 rules = {
