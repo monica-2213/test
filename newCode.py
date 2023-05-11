@@ -3,7 +3,7 @@ import streamlit as st
 from sklearn.tree import DecisionTreeClassifier
 
 # Load the dataset
-url = 'https://datahub.io/machine-learning/cervical-cancer/r/cervical-cancer.csv'
+url = 'https://datahub.io/machine-learning/cervical-cancer/r/cervical-cancer_csv.csv'
 data = pd.read_csv(url)
 
 # Preprocess the data
