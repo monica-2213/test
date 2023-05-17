@@ -1,37 +1,51 @@
-import pandas as pd
 import streamlit as st
-from sklearn.tree import DecisionTreeClassifier
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
 
 # Load the dataset
-url = 'https://datahub.io/machine-learning/cervical-cancer/r/cervical-cancer.csv'
-data = pd.read_csv(url)
+df = pd.read_csv('cervical_cancer_dataset.csv')
 
 # Preprocess the data
-data = data[['Age', 'Smokes', 'Biopsy']]
-data['Smokes'] = data['Smokes'].map({'0': 0, '1': 1, '2': 1})
-data = data.dropna()
+df.dropna(inplace=True)
+X = df.drop('Cervical cancer diagnosis', axis=1)
+y = df['Cervical cancer diagnosis']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train a decision tree model
-X = data[['Age', 'Smokes']]
-y = data['Biopsy']
-model = DecisionTreeClassifier()
-model.fit(X, y)
+# Train the model
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
 
 # Define the Streamlit app
-st.title('Cervical Cancer Diagnosis Expert System')
+def cervical_cancer_diagnosis():
+    st.title("Cervical Cancer Diagnosis")
+    st.write("Answer a few questions to determine if cervical cancer is likely.")
 
-# Ask for user input
-age = st.slider('Age', 15, 84)
-smokes = st.selectbox('Do you smoke?', ('No', 'Yes'))
+    age = st.slider("Age", 18, 100)
+    sexual_partners = st.slider("Number of Sexual Partners", 0, 20)
+    # Add more questions for other features in the dataset
 
-# Preprocess the user input
-smokes = 1 if smokes == 'Yes' else 0
+    if st.button("Diagnose"):
+        # Create a new dataframe with the user's input
+        user_input = pd.DataFrame({
+            'Age': [age],
+            'Number of sexual partners': [sexual_partners],
+            # Add more columns for other features in the dataset
+        })
 
-# Make a prediction
-prediction = model.predict([[age, smokes]])
+        # Make predictions using the trained model
+        prediction = model.predict(user_input)
+        probability = model.predict_proba(user_input)
 
-# Display the prediction
-if prediction[0] == 0:
-    st.write('You do not have cervical cancer.')
-else:
-    st.write('You have cervical cancer.')
+        # Display the diagnosis result
+        st.subheader("Diagnosis Result")
+        if prediction[0] == 0:
+            st.write("No Cervical Cancer detected.")
+        else:
+            st.write("Cervical Cancer detected.")
+        st.write("Probability: {:.2f}%".format(probability[0][1] * 100))
+
+# Run the Streamlit app
+if __name__ == '__main__':
+    cervical_cancer_diagnosis()
