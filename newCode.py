@@ -33,7 +33,9 @@ def cervical_cancer_diagnosis():
     # Create input sliders for each feature
     feature_inputs = {}
     for feature in feature_columns:
-        feature_inputs[feature] = st.slider(f"{feature}", df[feature].min(), df[feature].max())
+        min_val = df[feature].min()
+        max_val = df[feature].max()
+        feature_inputs[feature] = st.slider(f"{feature}", min_val, max_val)
 
     if st.button("Diagnose"):
         # Create a new dataframe with the user's input
