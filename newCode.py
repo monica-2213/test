@@ -9,9 +9,16 @@ df = pd.read_csv('cervical_cancer_dataset.csv')
 
 # Preprocess the data
 df.dropna(inplace=True)
-X = df.drop('Cervical cancer diagnosis', axis=1)
-y = df['Cervical cancer diagnosis']
 
+# Identify the column names for features and target variable
+feature_columns = df.columns[:-1]  # All columns except the last one
+target_column = df.columns[-1]  # Last column
+
+# Separate features and target variable
+X = df[feature_columns]
+y = df[target_column]
+
+# Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Train the model
@@ -23,17 +30,14 @@ def cervical_cancer_diagnosis():
     st.title("Cervical Cancer Diagnosis")
     st.write("Answer a few questions to determine if cervical cancer is likely.")
 
-    age = st.slider("Age", 18, 100)
-    sexual_partners = st.slider("Number of Sexual Partners", 0, 20)
-    # Add more questions for other features in the dataset
+    # Create input sliders for each feature
+    feature_inputs = {}
+    for feature in feature_columns:
+        feature_inputs[feature] = st.slider(f"{feature}", df[feature].min(), df[feature].max())
 
     if st.button("Diagnose"):
         # Create a new dataframe with the user's input
-        user_input = pd.DataFrame({
-            'Age': [age],
-            'Number of sexual partners': [sexual_partners],
-            # Add more columns for other features in the dataset
-        })
+        user_input = pd.DataFrame(feature_inputs, index=[0])
 
         # Make predictions using the trained model
         prediction = model.predict(user_input)
