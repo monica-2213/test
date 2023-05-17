@@ -11,6 +11,7 @@ df = pd.read_csv('cervical_cancer_dataset.csv')
 df.dropna(inplace=True)
 X = df.drop('Cervical cancer diagnosis', axis=1)
 y = df['Cervical cancer diagnosis']
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Train the model
